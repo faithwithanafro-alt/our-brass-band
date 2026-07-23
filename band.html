@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Booking for 'Our Brass Band' ">
+    <meta name="keywords" content="Our brass band, Booking">
+    <title>Our Brass Band - Lilongwe</title>
+
+    <style>
+        {margin: 0; padding: 0; box-sizing: border-box; }
+       body { font-family: Arial, sans-serif;}
+       
+       .topbar {
+        background-color: #800000;
+        color: white;
+        padding: 15px 20px;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+       }
+
+       .topbar a {
+        color: white;
+        text-decoration: none;
+        margin-left: 20px;
+        font-size: 0.95rem;
+       }
+
+       .topbar a.active { border-bottom: 2px solid #FFD700; font-weight: bold;} /*Gold underline*/ 
+        
+       .hero {
+        background-image: linear-gradient(rgba(128, 0, 0, 0.6), rgba(128, 0, 0, 0.6)), url('images/IMG-20240707-WA0093.jpg');
+        background-size: cover;
+        background-position: center;
+        height: 85vh;
+        color: white;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 20px;
+       }
+
+       .hero h1 { font-size: 2.2rem; color: #FFD700; margin: 10px;}
+
+       .hero p { font-size: 1.1rem; margin-bottom: 30px;}
+
+       .btn {
+        background-color: #800000;
+        color: #FFD700;
+        padding: 15px 30px;
+        text-decoration: none;
+        border-radius: 8px;
+        font-weight: bold;
+        font-size: 1.1rem;
+        border: 2px solid #FFD700;
+       }
+        </style>
+</head>
+<body>
+
+    <nav class="topbar">
+        <div class="logo">Our Brass Band</div>
+        <div>
+            <a href="band.html" class="active">HOME</a> <!--active means you on this page -->
+            <a href="terms.html">Terms</a>
+            <a href="booking.html">Book Now</a> 
+            </div>
+        </nav>
+  
+    <section class="hero">
+      <h1>Our Brass Band</h1>
+      <p>Lilongwe's #1 Brass Band for any event of your choice</p>
+      <a href="#booking" class="btn">Check Dates & Book Now</a>
+    </section>
+</body>
+</html>
