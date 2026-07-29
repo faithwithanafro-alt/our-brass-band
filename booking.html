@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <style>
+        * {margin: 0; padding: 0; box-sizing: border-box; }
+       body { font-family: Arial, sans-serif; background: #800000;}
+       
+       .topbar {
+        background: #800000;
+        color: white;
+        padding: 15px 20px ;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        display: flex;
+        justify-content: space-between;
+        text-align: center;
+        }
+
+       .topbar a {
+        color: white;
+        text-decoration: none;
+        margin-left: 20px;
+        font-size: 0.95rem;
+       }
+
+       .topbar a.active { border-bottom: 2px solid #FFD700; font-weight: bold;} /*Gold underline*/
+
+       .hero {
+        background-image: url('images/IMG-20240707-WA0022.jpg');
+        background-size: cover;
+        background-position: center;
+        height: 85vh;
+        color: white;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 20px;
+        position: relative;
+       }
+
+       .hero::before {
+        content: "";
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: rgba(0, 0, 0, 0.4); /*dark overlay*/
+        z-index: 1;
+       }
+
+       .booking-container { 
+        display: flex; 
+        gap: 40px; 
+        padding: 40px;
+        position: relative;
+        z-index: 2; /*puts everything in the booking container above the dark overlay*/
+        width: 100%;
+        max-width: 1200px;
+        box-sizing: border-box;
+    }
+       
+       .calendar-box {flex: 1; }
+
+       .flatpickr-calendar.inline {
+        width: 100%;
+        border: 3px solid #FFD700;
+        border-radius: 10px;
+        box-shadow: none;
+        background: white;
+    }
+
+    .flatpickr-day{
+        font-size: 16px;
+        height: 40px;
+        line-height: 40px;
+    }
+
+    .flatpickr-day.selected {background: #FFD700;border-color: #FFD700 ;}
+
+    .booking-sec {
+        background: white;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+
+    .book-btn {
+        background: #FFD700;
+        color: black;
+        border: none;
+        padding: 14px 24px;
+        border-radius: 8px;
+        font-weight: bold;
+        cursor: pointer;
+        width: 100%;
+    }
+
+    .book-btn:hover {background: #800000;}
+    .lightbox {
+        display: none; /*hidden at first*/
+        position: fixed;
+        z-index: 1000;
+        left: 0 ; top: 0;
+        width: 100%; height: 100%;
+        background: rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(3px);
+    }
+    .lightbox-content {
+        background: white;
+        color: black;
+        margin: 5% auto;
+        padding: 30px;
+        border-radius: 12px;
+        width: 90%;
+        max-width: 600px;
+        max-height: 90vh;
+        overflow-y: auto;
+    }
+    .close-btn {float: right; font-size: 28px; cursor:pointer;}
+
+    /*.lightbox-content label { display: block; margin-top: 15px; margin-bottom: 5px; font-weight: 600; color: black; }*/
+
+    /*.lightbox-content input, .lightbox-content select {
+       width: 100%; 
+       padding: 10px; 
+       margin-top: 5px;
+       border: 1px solid #ccc; 
+       border-radius: 6px;
+       color: black;
+       margin-bottom: 5px;*/
+
+    /*  FORM ROWS */
+.form-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 22px;
+  gap: 15px;
+}
+
+.form-row label {
+  width: 140px; /* keeps all labels aligned */
+  font-weight: 600;
+  color: black;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.form-row input, 
+.form-row select {
+  flex: 1; /* input takes remaining space */
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 15px;
+  color: black;
+}
+
+.form-row input:focus, 
+.form-row select:focus {
+  border-color: #FFD700; 
+  outline: none;
+}
+
+/* Mobile: stack on small screens */
+@media (max-width: 600px) {
+  .form-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .form-row label {
+    width: 100%;
+    text-align: left;
+  }
+}   
+ 
+
+    .lightbox-content h2,  {
+        color: black; 
+        text-align: center;
+        } 
+    
+    .lightbox-content hr {margin: 25px 0 15px 0; border: none; border-top: 1px solid white;}
+    .lightbox-content h2 {margin-top: 25px; margin-bottom: 25px; text-align: center; color: black;}
+
+    .next-btn {
+      background: #800000;
+      color: black; 
+      border: none;
+      padding: 12px 20px; 
+      border-radius: 8px; 
+      margin-top: 20px;
+      cursor: pointer; 
+      width: 100%; 
+      font-weight: bold;
+}
+
+     /* PROGRESS */
+    .progress { text-align: center; margin: 15px 0; }
+    .dot {
+      height: 25px; 
+      width: 25px; 
+      background: #ddd; 
+      border-radius: 50%;
+      display: inline-block; 
+      line-height: 25px; 
+      margin: 0 5px;
+}
+    .dot.active { background: #FFD700; color: black; font-weight: bold; }
+
+     </style>
+       
+    </head>
+    
+<body>
+   
+    <nav class="topbar">
+        <div class="logo">Our Brass Band</div>
+        <div>
+            <a href="band.html">Home</a> 
+            <a href="terms.html">Terms</a>
+            <a href="booking.html" class="active">BOOK</a> <!--active means you on this page -->
+            </div>
+        </nav>
+
+        <section class="hero">
+           <div class="booking-container">
+
+            <div class="calendar-box">
+             <h2 style="color: white; margin-bottom: 10px;">Pick a Date</h2>   
+               <div id="inline-calendar"></div>
+            </div>
+
+            <div class="booking-sec">
+                <h3>Book Our Brass Band</h3>
+                <p>Selected Date: <span id="SelectedDateText">Pick a date on the calendar</span></p>
+                <button id="openBookingBtn" class="book-btn">REQUEST BOOKING</button>
+            </div>
+
+            <div id="bookingLightbox" class="lightbox">
+                <div class="lightbox-content">
+                    <span class="close-btn" id="closeLightbox">&times;</span>
+
+                    <h1>OBB Booking Request</h1>
+
+                    <div class="progress">
+                        <span class="dot active">1</span>
+                        <span class="dot">2</span>
+                        <span class="dot">3</span>
+                    </div>
+
+                    
+                        <div class="step active" id="step1">
+                            <h2>Step 1 : Event Details </h2>
+
+                            <div class="form-raw">
+                            <label>Event Name</label>
+                            <input type="text" name="eventName" required>
+                            </div>
+
+                            <div class="form-raw">
+                            <label>Event Type</label>
+                            <select name="eventType" required>
+                                <option value="">Select..</option>
+                                <option>Wedding</option>
+                                <option>Church</option>
+                                <option>Funeral</option>
+                                <option>Corporate</option>
+                                <option>Concert</option>
+                                <option>Other</option>
+                            </select>
+                            </div>
+                            
+                            <div class="form-raw">
+                            <label>Time From</label>
+                            <input type="time" name="timeFrom" >
+                            <label>Time To</label>
+                            <input type="time" name="timeTo">
+                            </div>
+
+                            <div class="form-raw">
+                            <label>Venue & address</label>
+                            <input type="text" name="venue" required>
+                            </div>
+                            
+                            <div class="form-raw">
+                            <label>Expected Audience Size</label>
+                            <input type="number" name="audience">
+                            </div>
+                            <hr>
+                            
+                            <h2>Client Information</h2>
+
+                            <div class="form-raw">
+                            <label >Full name/Organization></label>
+                            <input type="text" name="clientName" required>
+                            </div>
+
+                            <div class="form-raw">
+                            <label>Phone number</label>
+                            <input type="tel" name="clientPhone">
+                            </div>
+
+                            <div class="form-raw">
+                            <label>Email</label>
+                            <input type="email" name="ClientEmail">
+                            </div>
+                            <button type="button" class="next-btn">Next</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            </div>
+        </section>
+
+            <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.js"></script>
+
+            <script>
+            flatpickr("#inline-calendar", {
+                inline: true,  //shows calendar
+                defaultDate: "today", //starts at july 2026
+                minDate: "today", //cant pick a date that has already past
+                 } ); 
+                 
+            // LIGHTBOX
+const openBtn = document.getElementById('openBookingBtn');
+const lightbox = document.getElementById('bookingLightbox');
+const closeBtn = document.getElementById('closeLightbox');
+
+openBtn.onclick = () => lightbox.style.display = 'block';
+closeBtn.onclick = () => lightbox.style.display = 'none';
+window.onclick = (e) => { if(e.target == lightbox) lightbox.style.display = 'none'; }
+
+// Show selected date in the panel
+flatpickr("#calendar", {
+  inline: true,
+  onChange: function(selectedDates, dateStr) {
+    document.getElementById('selectedDateText').innerText = dateStr;
+  }
+});     
+  
+        </script>
+</body>
+</html>
