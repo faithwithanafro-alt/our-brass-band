@@ -35,7 +35,9 @@
         background-image: url('images/IMG-20240707-WA0022.jpg');
         background-size: cover;
         background-position: center;
-        height: 85vh;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        min-height: 100vh;
         color: white;
         display: flex;
         flex-direction: column;
@@ -44,6 +46,7 @@
         text-align: center;
         padding: 20px;
         position: relative;
+        margin: 0;
        }
 
        .hero::before {
@@ -56,16 +59,18 @@
 
        .booking-container { 
         display: flex; 
-        gap: 40px; 
-        padding: 40px;
+        flex-direction: column;
+        gap: 20px; 
+        padding: 20px;
         position: relative;
         z-index: 2; /*puts everything in the booking container above the dark overlay*/
         width: 100%;
-        max-width: 1200px;
+        max-width: 600px;
+        margin: 0 auto;
         box-sizing: border-box;
     }
        
-       .calendar-box {flex: 1; }
+       .form-box {width: 100%; }
 
        .flatpickr-calendar.inline {
         width: 100%;
@@ -95,7 +100,7 @@
         background: #FFD700;
         color: black;
         border: none;
-        padding: 14px 24px;
+        padding: 16px;
         border-radius: 8px;
         font-weight: bold;
         cursor: pointer;
@@ -223,7 +228,7 @@
     <nav class="topbar">
         <div class="logo">Our Brass Band</div>
         <div>
-            <a href="band.html">Home</a> 
+            <a href="index.html">Home</a> 
             <a href="terms.html">Terms</a>
             <a href="booking.html" class="active">BOOK</a> <!--active means you on this page -->
             </div>

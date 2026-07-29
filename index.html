@@ -36,7 +36,9 @@
         background-image: linear-gradient(rgba(128, 0, 0, 0.6), rgba(128, 0, 0, 0.6)), url('images/BLSSM-0795.jpg');
         background-size: cover;
         background-position: center;
-        height: 85vh;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        height: 100vh;
         color: white;
         display: flex;
         flex-direction: column;
@@ -44,6 +46,9 @@
         align-items: center;
         text-align: center;
         padding: 20px;
+        margin: 0;
+        position: relative;
+        width: 100%;
        }
 
        .hero h1 { font-size: 2.2rem; color: #FFD700; margin: 10px;}
@@ -67,7 +72,7 @@
     <nav class="topbar">
         <div class="logo">Our Brass Band</div>
         <div>
-            <a href="band.html" class="active">HOME</a> <!--active means you on this page -->
+            <a href="index.html" class="active">HOME</a> <!--active means you on this page -->
             <a href="terms.html">T&C</a>
             <a href="booking.html">Book</a> 
             </div>
