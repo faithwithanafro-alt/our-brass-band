@@ -1,4 +1,4 @@
 
 
-simply booking website for a brass band, for now  we still in process
+simple booking website for a brass band (still in progress)
 
